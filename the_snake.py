@@ -34,6 +34,7 @@ class GameObject:
     def __init__(self, position=(0, 0), color=(0, 0, 0)):
         self.position = position
         self.color = color
+        self.body_color = color  # Добавляем атрибут `body_color`
 
     def draw(self):
         """Отрисовывает объект на игровом поле."""
@@ -47,9 +48,10 @@ class Snake(GameObject):
 
     def __init__(self):
         super().__init__(position=(GRID_SIZE, GRID_SIZE), color=SNAKE_COLOR)
-        self.body = [(GRID_SIZE, GRID_SIZE)]  # Начальное положение головы
+        self.body = [(GRID_SIZE, GRID_SIZE)]
         self.direction = RIGHT
         self.next_direction = None
+        self.positions = self.body  # Добавляем атрибут `positions`
 
     def update(self):
         """Обновляет позицию змейки."""
@@ -104,6 +106,7 @@ class Apple(GameObject):
 
     def __init__(self):
         super().__init__(position=self.random_position(), color=APPLE_COLOR)
+        self.body_color = APPLE_COLOR  # Добавляем атрибут `body_color`
 
     def random_position(self):
         """Генерирует случайную позицию для яблока."""
@@ -114,6 +117,10 @@ class Apple(GameObject):
 
     def spawn_new_apple(self):
         """Перемещает яблоко на новую случайную позицию."""
+        self.position = self.random_position()
+
+    def randomize_position(self):
+        """Обновляет позицию яблока случайным образом."""
         self.position = self.random_position()
 
 
