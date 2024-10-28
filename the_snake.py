@@ -1,4 +1,4 @@
-from random import randint  
+from random import randint  # Убрано неиспользуемое 'choice'
 import pygame
 
 # Константы для размеров поля и сетки:
@@ -30,7 +30,7 @@ clock = pygame.time.Clock()
 
 class GameObject:
     """Базовый класс для всех игровых объектов."""
-    
+
     def __init__(self, position):
         """Инициализация объекта с заданной позицией."""
         self.position = position
@@ -38,7 +38,7 @@ class GameObject:
 
 class Snake(GameObject):
     """Класс змейки."""
-    
+
     def __init__(self):
         """Инициализация змейки."""
         super().__init__((GRID_WIDTH // 2 * GRID_SIZE, GRID_HEIGHT // 2 * GRID_SIZE))
@@ -77,14 +77,14 @@ class Snake(GameObject):
         self.last = self.position
         self.position = new_head
         self.positions.insert(0, new_head)
-        
+
         if len(self.positions) > 5:  # Длина змейки
             self.positions.pop()
 
 
 class Apple(GameObject):
     """Класс яблока."""
-    
+
     def __init__(self):
         """Инициализация яблока с случайной позицией."""
         position = (randint(0, GRID_WIDTH - 1) * GRID_SIZE,
@@ -123,9 +123,9 @@ def main():
 
     snake = Snake()
     apple = Apple()
+
     while True:
         clock.tick(SPEED)
-
         handle_keys(snake)
         snake.update_direction()
         snake.move()
