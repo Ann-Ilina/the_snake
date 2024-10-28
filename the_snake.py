@@ -1,4 +1,4 @@
-from random import randint  # Убрано неиспользуемое 'choice'
+from random import randint
 import pygame
 
 # Константы для размеров поля и сетки:
@@ -41,7 +41,8 @@ class Snake(GameObject):
 
     def __init__(self):
         """Инициализация змейки."""
-        super().__init__((GRID_WIDTH // 2 * GRID_SIZE, GRID_HEIGHT // 2 * GRID_SIZE))
+        super().__init__((GRID_WIDTH // 2 * GRID_SIZE,
+                          GRID_HEIGHT // 2 * GRID_SIZE))
         self.body_color = SNAKE_COLOR
         self.positions = [self.position]
         self.direction = RIGHT
@@ -126,6 +127,7 @@ def main():
 
     while True:
         clock.tick(SPEED)
+
         handle_keys(snake)
         snake.update_direction()
         snake.move()
