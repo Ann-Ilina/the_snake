@@ -57,22 +57,21 @@ class Snake(GameObject):
             self.direction = self.next_direction
             self.next_direction = None
 
-        # Новая голова
-        new_head = (self.body[0][0] + self.direction[0] * GRID_SIZE,
-                    self.body[0][1] + self.direction[1] * GRID_SIZE)
+        new_head = (
+            self.body[0][0] + self.direction[0] * GRID_SIZE,
+            self.body[0][1] + self.direction[1] * GRID_SIZE
+        )
 
-        # Учитываем "появление" с другой стороны
         new_head = (new_head[0] % SCREEN_WIDTH, new_head[1] % SCREEN_HEIGHT)
 
-        # Проверка на столкновение с собой
         if new_head in self.body:
             raise SystemExit("Game Over!")
 
-        self.body.insert(0, new_head)  # Добавляем новую голову
+        self.body.insert(0, new_head)
 
     def grow(self):
         """Увеличивает змейку на один сегмент."""
-        self.body.append(self.body[-1])  # Увеличиваем змейку на один сегмент
+        self.body.append(self.body[-1])
 
     def get_head_position(self):
         """Возвращает позицию головы змейки."""
@@ -90,7 +89,8 @@ class Snake(GameObject):
     def update_direction(self, new_direction):
         """Обновляет направление движения змейки."""
         if new_direction in (UP, DOWN, LEFT, RIGHT):
-            if (self.direction[0] + new_direction[0], self.direction[1] + new_direction[1]) != (0, 0):
+            if (self.direction[0] + new_direction[0],
+                    self.direction[1] + new_direction[1]) != (0, 0):
                 self.next_direction = new_direction
 
     def draw(self):
@@ -107,8 +107,10 @@ class Apple(GameObject):
 
     def random_position(self):
         """Генерирует случайную позицию для яблока."""
-        return (randint(0, GRID_WIDTH - 1) * GRID_SIZE,
-                randint(0, GRID_HEIGHT - 1) * GRID_SIZE)
+        return (
+            randint(0, GRID_WIDTH - 1) * GRID_SIZE,
+            randint(0, GRID_HEIGHT - 1) * GRID_SIZE
+        )
 
     def spawn_new_apple(self):
         """Перемещает яблоко на новую случайную позицию."""
@@ -134,7 +136,6 @@ def handle_keys(snake):
 
 def main():
     """Основная функция игры."""
-    # Инициализация PyGame
     pygame.init()
 
     snake = Snake()
@@ -147,12 +148,10 @@ def main():
 
         snake.move()
 
-        # Проверка на съедение яблока
         if snake.body[0] == apple.position:
             snake.grow()
             apple.spawn_new_apple()
 
-        # Отрисовка
         screen.fill(BOARD_BACKGROUND_COLOR)
         snake.draw()
         apple.draw()
